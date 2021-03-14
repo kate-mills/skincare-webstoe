@@ -14,7 +14,6 @@ const onToken = token => {
 }
 const StripeCheckoutButton  = ({price}) => {
   const priceForStripe = price * 100;
-  console.log(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
   return (
     <StripeCheckout label='Pay Now'
       name='Skincare Webstore'
