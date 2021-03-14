@@ -9,7 +9,6 @@ import StripeCheckout from 'react-stripe-checkout'
 import './stripe-button.styles.scss'
 
 const onToken = token => {
-  console.log(token);
   alert('Payment Successful')
 }
 const StripeCheckoutButton  = ({price}) => {
