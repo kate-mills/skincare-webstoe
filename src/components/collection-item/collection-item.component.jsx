@@ -2,26 +2,59 @@ import React from 'react';
 import {connect} from 'react-redux'
 import { addItem } from '../../redux/cart/cart.actions'
 
-import CustomButton from '../custom-button/custom-button.component'
-
 import './collection-item.styles.scss';
 
-const CollectionItem = ({item, addItem}) =>{ 
-  const {name, price, imageUrl} = item;
+import {
+  ColItemWrapper,
+  ColItemBackgroundImage,
+  ColItemFooterWrapper,
+  ColItemNameWrapper,
+  ColItemPriceWrapper,
+  ColItemButton,
+  AlertMessage,
+} from './collectionitem.styles'
 
-  return (<div className='collection-item'>
-    <div
-      className='image'
-      style={{
-        backgroundImage: `url(${imageUrl})`
-      }}
+const ColItem = ({item, addItem}) =>{ 
+  const {name, price, imageUrl} = item;
+  const [msg, setMsg] = React.useState('')
+
+  const displaySuccess= (msg) => {
+    setMsg(msg)
+  }
+  React.useEffect(() => {
+    if(msg.length > 0){
+      const timer = () => setTimeout(() => setMsg(''), 800);
+      const timerId = timer();
+      return () => {
+        clearTimeout(timerId);
+      };
+    }
+  }, [msg]);
+
+  return (
+  <ColItemWrapper>
+    <ColItemBackgroundImage
+      className="img"
+      imageUrl={`url(${imageUrl})`}
     />
-    <div className='collection-footer'>
-      <span className='name'>{name.slice(0, 14)}...</span>
-      <span className='price'>${price}</span>
-    </div>
-    <CustomButton inverted onClick={() => addItem(item)}>ADD TO CART</CustomButton>
-  </div>
+    <ColItemFooterWrapper>
+      <ColItemNameWrapper>{name}</ColItemNameWrapper>
+      <ColItemPriceWrapper>${price}</ColItemPriceWrapper>
+    </ColItemFooterWrapper>
+    <ColItemButton
+      className="btn"
+      inverted
+      onClick={
+        () => {
+          addItem(item)
+          displaySuccess('Added 1')
+        }
+      }>ADD TO CART
+    </ColItemButton>
+    <AlertMessage className={msg.length ? 'success': ''}>
+      {msg || ''}
+    </AlertMessage>
+  </ColItemWrapper>
   )
 }
 
@@ -29,4 +62,4 @@ const mapDispatchToProps = dispatch => ({
   addItem: item => dispatch(addItem(item))
 })
 
-export default connect(null, mapDispatchToProps)(CollectionItem)
+export default connect(null, mapDispatchToProps)(ColItem)

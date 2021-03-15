@@ -1,72 +1,99 @@
 import styled from 'styled-components';
 import CustomButton from '../custom-button/custom-button.component';
 
-export const CollectionItemContainer = styled.div`
+export const ColItemWrapper = styled.div`
   width: 22vw;
   display: flex;
   flex-direction: column;
-  height: 350px;
+  height: 200px;
   align-items: center;
   position: relative;
+
   &:hover {
-    .image {
-      opacity: 0.8;
-    }
-    button {
-      opacity: 0.85;
-      display: flex;
-    }
+    .btn,
+    .img {opacity: 0.8;}
+    .btn{display: flex;}
   }
-  @media screen and (max-width: 800px) {
+
+  @media (max-width: 800px) {
     width: 40vw;
     &:hover {
-      .image {
-        opacity: unset;
-      }
-      button {
-        opacity: unset;
-      }
+      .btn,
+      .img {opacity: unset;}
     }
   }
 `;
 
-export const AddButton = styled(CustomButton)`
-  width: 80%;
-  opacity: 0.7;
-  position: absolute;
-  top: 255px;
+export const ColItemButton = styled(CustomButton)`
   display: none;
+  opacity: 0.6;
+  position: absolute;
+  top: 65%;
+  width: 80%;
+
+  &:focus{
+    outline: none;
+  }
+  &:hover{
+    opacity: 0.3%;
+    cursor: pointer;
+  }
   @media screen and (max-width: 800px) {
-    display: block;
-    opacity: 0.9;
+    display: flex;
     min-width: unset;
     padding: 0 10px;
+    &:hover{opacity: unset;}
   }
 `;
 
-export const BackgroundImage = styled.div`
-  width: 100%;
-  height: 95%;
-  background-size: cover;
-  background-position: center;
+export const ColItemBackgroundImage = styled.div`
+  width: 95%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
   margin-bottom: 5px;
-  background-image: ${({ imageUrl }) => `url(${imageUrl})`};
-`;
+  background-image: ${props => props.imageUrl}
+`
 
-export const CollectionFooterContainer = styled.div`
-  width: 100%;
+export const ColItemFooterWrapper = styled.div`
+  width: 70%;
   height: 5%;
   display: flex;
   justify-content: space-between;
   font-size: 18px;
 `;
 
-export const NameContainer = styled.span`
-  width: 90%;
+export const ColItemNameWrapper = styled.span`
+  width: 100%;
+  height: fit-content;
   margin-bottom: 15px;
+  margin-right: 0.1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
-export const PriceContainer = styled.span`
-  width: 10%;
+export const ColItemPriceWrapper = styled.span`
+  height: fit-content;
   text-align: right;
 `;
+
+export const AlertMessage = styled.div`
+  background: gainsboro;
+  cursor: not-allowed;
+  font-size: 1.24rem;
+  font-weight: bold;
+  height: fit-content;
+  padding: 0.65rem 1.5rem;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  z-index: -1111;
+
+  &.success{
+    border: 0.1rem solid dimgrey;
+    opacity: 0.8;
+    z-index: 1;
+  }
+`
