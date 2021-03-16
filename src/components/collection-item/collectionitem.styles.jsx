@@ -80,19 +80,20 @@ export const ColItemPriceWrapper = styled.span`
 `;
 
 export const AlertMessage = styled.div`
-  background: gainsboro;
+  background: white;
   cursor: not-allowed;
   font-size: 1.24rem;
   font-weight: bold;
   height: fit-content;
-  padding: 0.65rem 1.5rem;
+  padding: 1rem 1.5rem;
   position: absolute;
   text-align: center;
   top: 0;
   z-index: -1111;
 
   &.success{
-    border: 0.1rem solid dimgrey;
+    border: 0.1rem solid gainsboro;
+    color: coral;
     opacity: 0.8;
     z-index: 1;
   }
