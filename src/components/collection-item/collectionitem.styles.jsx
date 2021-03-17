@@ -92,8 +92,8 @@ export const AlertMessage = styled.div`
   z-index: -1111;
 
   &.success{
-    border: 0.1rem solid gainsboro;
-    color: coral;
+    /*border: 0.1rem solid gainsboro;*/
+    color: black;
     opacity: 0.8;
     z-index: 1;
   }

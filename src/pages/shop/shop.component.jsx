@@ -25,6 +25,7 @@ class ShopPage extends React.Component{
     collectionRef.onSnapshot(async snapshot => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapshot)
       updateCollectionsDispatched(collectionsMap)
+      console.log('collectionsMap', collectionsMap)
       this.setState({loading: false})
     })
   }
