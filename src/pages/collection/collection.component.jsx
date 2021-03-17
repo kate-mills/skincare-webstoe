@@ -9,11 +9,10 @@ import CollectionItem from '../../components/collection-item/collection-item.com
 
 
 const CollectionPage = ({match, collection}) => {
-  const {collectionId} = match.params
 
   return (
     <div className='collection-page'>
-      <h2 className="title">{collectionId}</h2>
+      <h2 className="title">{collection.title}</h2>
       <div className="items">
         {
           collection.items.map(item => {
