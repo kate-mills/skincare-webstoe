@@ -2,6 +2,8 @@ import React from 'react'
 
 import logo from '../../assets/crown.svg'
 
+import axios from 'axios'
+
 //  Stripe Props
 // https://github.com/azmenak/react-stripe-checkout#send-all-the-props
 import StripeCheckout from 'react-stripe-checkout'
