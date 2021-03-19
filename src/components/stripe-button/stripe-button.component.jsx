@@ -1,33 +1,52 @@
+/* eslint-disable no-whitespace-before-property */
 import React from 'react'
-
-import logo from '../../assets/crown.svg'
-
-import axios from 'axios'
-
-//  Stripe Props
-// https://github.com/azmenak/react-stripe-checkout#send-all-the-props
-import StripeCheckout from 'react-stripe-checkout'
+import StripeCheckout from 'react-stripe-checkout';
+import logo from '../../assets/crown.png'
 
 import './stripe-button.styles.scss'
+ 
+export default class TakeMoney extends React.Component {
+  onToken = (token) => {
+      const data_props = {
+        token: token,
+        cartAmount: this.props.cartTotal,
+        line_items: this.props.cartItems.map(item => {
+          return {
+            name: item.name,
+            description: item.description,
+            images: [item.imageUrl],
+            amount: item.price * 100,
+            currency: 'usd',
+            quantity: item.quantity
+          }
+        }),
+        source: token.id
+      }
 
-const onToken = token => {
-  alert('Payment Successful')
+    fetch('/.netlify/functions/charge', {
+      method: 'POST',
+      body: JSON.stringify(data_props),
+    }).then(response => {
+      response.json().then(data => {
+        alert(`We are in business, ${data.email}`);
+      });
+    });
+  }
+ 
+  render() {
+    console.log('props', this.props)
+    return (
+      <StripeCheckout
+        name="Skincare Webstore"
+        panelLabel="Buy Now"
+        billingAddress
+        shippingAddress
+        image={logo}
+        currency="USD"
+        token={this.onToken}
+        description={`Your total is ${this.props.cartTotal}`}
+        stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
+      />
+    )
+  }
 }
-const StripeCheckoutButton  = ({price}) => {
-  const priceForStripe = price * 100;
-  return (
-    <StripeCheckout label='Pay Now'
-      name='Skincare Webstore'
-      billingAddress
-      shippingAddress
-      image={logo}
-      description={`Your total is $${price}`}
-      amount={priceForStripe}
-      panelLabel='Pay Now'
-      token={onToken}
-      stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
-    />
-  )
-}
-
-export default StripeCheckoutButton
